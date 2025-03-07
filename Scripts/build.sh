@@ -1,6 +1,6 @@
 #! /bin/bash
 
-mkdir -p build
+mkdir -p Build
 
 BUILD_TYPE=$1
 

@@ -5,6 +5,6 @@ ensure_binary_exists() {
   fi
 }
 
-ensure_binary_exists "build/Debug/6502Emulator"
+ensure_binary_exists "build/Debug/Applications/Emulator/6502Emulator"
 
-./build/Debug/6502Emulator
+./build/Debug/Applications/Emulator/6502Emulator
