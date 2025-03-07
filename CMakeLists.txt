@@ -6,4 +6,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(6502Emulator CXX)
 
 add_executable(6502Emulator
-    Application/main.cpp)
+    Application/main.cc)
