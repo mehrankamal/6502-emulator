@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Lib.hh"
+#include "LibCpu.hh"
 
 int main() {
   MOS6502::Memory memory;
