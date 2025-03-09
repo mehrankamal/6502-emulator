@@ -2,26 +2,16 @@
 
 #include <LibCpu.hh>
 
-int main() {
+int main(int argc, char *argv[]) {
   MOS6502::Memory memory;
   MOS6502::Cpu cpu;
+  MOS6502::Emulator emulator(cpu, memory);
 
-  cpu.reset();
-  while (true) {
-    auto opcode_byte = cpu.fetch_raw(memory);
-    auto opcode = cpu.decode(opcode_byte);
-    if (opcode == MOS6502::Instruction::BRK) {
-      break;
-    }
-    cpu.execute_instruction(opcode, memory);
-
-    std::cout << "----------------------------" << std::endl;
-    cpu.dump_registers();
+  if (argc < 2) {
+    std::cerr << "Usage: " << argv[0] << " <executable-path>" << std::endl;
   }
-
-  std::cout << "Program finished" << std::endl;
-
-  cpu.dump_registers();
+  emulator.load_binary(argv[1]);
+  emulator.run();
 
   return 0;
 }

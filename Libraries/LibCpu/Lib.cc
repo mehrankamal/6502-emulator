@@ -6,7 +6,7 @@
 
 namespace MOS6502 {
 void Cpu::reset() {
-  m_pc = 0x0400;
+  m_pc = 0x0000;
   m_sp = 0xFF;
   m_accumulator = 0;
   m_x = 0;
@@ -44,15 +44,15 @@ Instruction Cpu::decode(Byte byte) {
 void Cpu::execute_instruction(Instruction opcode, Memory &memory) {
   switch (opcode) {
   case Instruction::LDA: {
-    m_accumulator = fetch_current_address(memory);
+    m_accumulator = fetch_raw(memory);
     update_zero_negative_flags(accumulator());
   } break;
   case Instruction::LDX: {
-    m_x = fetch_current_address(memory);
+    m_x = fetch_raw(memory);
     update_zero_negative_flags(x());
   } break;
   case Instruction::LDY: {
-    m_y = fetch_current_address(memory);
+    m_y = fetch_raw(memory);
     update_zero_negative_flags(y());
   }
   case Instruction::BRK:

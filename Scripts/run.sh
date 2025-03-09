@@ -7,4 +7,4 @@ ensure_binary_exists() {
 
 ensure_binary_exists "build/Debug/Applications/Emulator/6502Emulator"
 
-./build/Debug/Applications/Emulator/6502Emulator
+./build/Debug/Applications/Emulator/6502Emulator "$@" 

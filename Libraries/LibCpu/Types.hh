@@ -1,7 +1,8 @@
 #pragma once
 
-using u8 = unsigned char;
-using u16 = unsigned short;
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef unsigned int u32;
 
 constexpr u16 KB = 1024;
 

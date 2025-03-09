@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Types.hh"
 
 #include "Instruction.hh"
