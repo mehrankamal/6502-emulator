@@ -26,6 +26,7 @@ private:
 enum class Instruction {
   LDA = 0xA9,
   LDX = 0xA2,
+  LDY = 0xA0,
   BRK = 0x00,
 };
 
@@ -34,8 +35,7 @@ enum class Flag {
   Negative = 0b10000000,
 };
 
-template<typename T>
-inline Byte to_underlying(T instruction) {
+template <typename T> inline Byte to_underlying(T instruction) {
   return static_cast<Byte>(instruction);
 }
 
@@ -54,6 +54,7 @@ public:
   void reset();
   Instruction fetch(Memory const &);
   Byte fetch_raw(Memory const &);
+  Byte fetch_current_address(Memory const &);
   Instruction decode(Byte);
   Byte fetch_location(Memory const &, Byte) const;
   void execute_instruction(Instruction, Memory &);

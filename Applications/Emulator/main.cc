@@ -14,7 +14,9 @@ int main() {
   memory[0x0401] = 0x00;
   memory[0x0402] = MOS6502::to_underlying(MOS6502::Instruction::LDX);
   memory[0x0403] = 0x01;
-  memory[0x0404] = MOS6502::to_underlying(MOS6502::Instruction::BRK);
+  memory[0x0404] = MOS6502::to_underlying(MOS6502::Instruction::LDY);
+  memory[0x0405] = 0x01;
+  memory[0x0406] = MOS6502::to_underlying(MOS6502::Instruction::BRK);
 
   cpu.reset();
   while (true) {

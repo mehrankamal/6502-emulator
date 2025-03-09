@@ -25,8 +25,14 @@ Byte Cpu::fetch_raw(Memory const &memory) {
   return data;
 }
 
+Byte Cpu::fetch_current_address(Memory const &memory) {
+  auto addr = fetch_raw(memory);
+  auto data = fetch_location(memory, addr);
+  return data;
+}
+
 Instruction Cpu::decode(Byte byte) {
-  // FIXME: Use a better strategy to decode byte into corresponding instruction
+  // TODO: Use a better strategy to decode byte into corresponding instruction
   // type
   return static_cast<Instruction>(byte);
 }
@@ -34,19 +40,18 @@ Instruction Cpu::decode(Byte byte) {
 void Cpu::execute_instruction(Instruction opcode, Memory &memory) {
   switch (opcode) {
   case Instruction::LDA: {
-    auto addr = fetch_raw(memory);
-    auto data = fetch_location(memory, addr);
-    m_accumulator = data;
+    m_accumulator = fetch_current_address(memory);
     update_zero_negative_flags(accumulator());
   } break;
   case Instruction::LDX: {
-    auto addr = fetch_raw(memory);
-    auto data = fetch_location(memory, addr);
-    m_x = data;
+    m_x = fetch_current_address(memory);
     update_zero_negative_flags(x());
   } break;
+  case Instruction::LDY: {
+    m_y = fetch_current_address(memory);
+    update_zero_negative_flags(y());
+  }
   case Instruction::BRK:
-    m_pc = 0x0402;
     break;
   default:
     std::cout << "Unknown opcode: " << std::hex << (int)opcode << std::endl;
