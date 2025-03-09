@@ -1,4 +1,8 @@
 #include "Lib.hh"
+#include "Cpu.hh"
+#include "Flag.hh"
+#include "Instruction.hh"
+#include <iostream>
 
 namespace MOS6502 {
 void Cpu::reset() {
