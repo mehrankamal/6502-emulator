@@ -18,7 +18,8 @@ int main() {
 
   cpu.reset();
   while (true) {
-    auto opcode = cpu.fetch(memory);
+    auto opcode_byte = cpu.fetch_raw(memory);
+    auto opcode = cpu.decode(opcode_byte);
     if(opcode == MOS6502::Instruction::BRK) {
       break;
     }

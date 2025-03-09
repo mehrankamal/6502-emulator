@@ -54,6 +54,7 @@ public:
   void reset();
   Instruction fetch(Memory const &);
   Byte fetch_raw(Memory const &);
+  Instruction decode(Byte);
   Byte fetch_location(Memory const &, Byte) const;
   void execute_instruction(Instruction, Memory &);
   void update_zero_negative_flags(Byte);

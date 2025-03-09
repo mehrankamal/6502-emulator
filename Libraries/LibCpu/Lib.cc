@@ -25,6 +25,12 @@ Byte Cpu::fetch_raw(Memory const &memory) {
   return data;
 }
 
+Instruction Cpu::decode(Byte byte) {
+  // FIXME: Use a better strategy to decode byte into corresponding instruction
+  // type
+  return static_cast<Instruction>(byte);
+}
+
 void Cpu::execute_instruction(Instruction opcode, Memory &memory) {
   switch (opcode) {
   case Instruction::LDA: {
