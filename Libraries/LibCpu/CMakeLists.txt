@@ -1,5 +1,5 @@
 add_library(LibCpu STATIC 
-    Lib.cc
+    Cpu.cc
     Emulator.cc
     Memory.cc
 )
