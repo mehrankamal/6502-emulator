@@ -25,6 +25,7 @@ private:
 
 enum class Instruction {
   LDA = 0xA9,
+  LDX = 0xA2,
   BRK = 0x00,
 };
 
@@ -33,7 +34,8 @@ enum class Flag {
   Negative = 0b10000000,
 };
 
-inline Byte to_underlying(Flag instruction) {
+template<typename T>
+inline Byte to_underlying(T instruction) {
   return static_cast<Byte>(instruction);
 }
 
@@ -52,24 +54,10 @@ public:
   void reset();
   Instruction fetch(Memory const &);
   Byte fetch_raw(Memory const &);
+  Byte fetch_location(Memory const &, Byte) const;
   void execute_instruction(Instruction, Memory &);
   void update_zero_negative_flags(Byte);
-
-  void dump_registers() const {
-    std::cout << "PC: " << std::hex << pc() << std::endl;
-    std::cout << "SP: " << std::hex << sp() << std::endl;
-    std::cout << "A: " << std::hex << (int)accumulator() << std::endl;
-    std::cout << "X: " << std::hex << x() << std::endl;
-    std::cout << "Y: " << std::hex << y() << std::endl;
-    std::cout << "Status: " << std::endl;
-    std::cout << "  Zero:     "
-              << ((status() & to_underlying(Flag::Zero)) ? 1 : 0) << std::endl;
-    std::cout << "  Negative: "
-              << ((status() & to_underlying(Flag::Negative)) ? 1 : 0)
-              << std::endl;
-  }
-
-
+  void dump_registers() const;
 
 private:
   Word m_pc;

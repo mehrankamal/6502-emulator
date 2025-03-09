@@ -14,6 +14,11 @@ Instruction Cpu::fetch(Memory const &memory) {
   return static_cast<Instruction>(fetch_raw(memory));
 }
 
+Byte Cpu::fetch_location(Memory const &memory, Byte location) const {
+  auto data = memory[location];
+  return data;
+}
+
 Byte Cpu::fetch_raw(Memory const &memory) {
   auto data = memory[m_pc];
   m_pc++;
@@ -22,18 +27,23 @@ Byte Cpu::fetch_raw(Memory const &memory) {
 
 void Cpu::execute_instruction(Instruction opcode, Memory &memory) {
   switch (opcode) {
-  case Instruction::LDA: // LDA Immediate
-  {
-    auto data = fetch_raw(memory);
+  case Instruction::LDA: {
+    auto addr = fetch_raw(memory);
+    auto data = fetch_location(memory, addr);
     m_accumulator = data;
     update_zero_negative_flags(accumulator());
+  } break;
+  case Instruction::LDX: {
+    auto addr = fetch_raw(memory);
+    auto data = fetch_location(memory, addr);
+    m_x = data;
+    update_zero_negative_flags(x());
   } break;
   case Instruction::BRK:
     m_pc = 0x0402;
     break;
   default:
     std::cout << "Unknown opcode: " << std::hex << (int)opcode << std::endl;
-    break;
   }
 }
 
@@ -45,6 +55,20 @@ void Cpu::update_zero_negative_flags(Byte reg) {
   if (reg & 0b01000000) {
     m_status |= to_underlying(Flag::Negative);
   }
+}
+
+void Cpu::dump_registers() const {
+  std::cout << "PC: " << std::hex << pc() << std::endl;
+  std::cout << "SP: " << std::hex << sp() << std::endl;
+  std::cout << "A: " << std::hex << (int)accumulator() << std::endl;
+  std::cout << "X: " << std::hex << (int)x() << std::endl;
+  std::cout << "Y: " << std::hex << (int)y() << std::endl;
+  std::cout << "Status: " << std::endl;
+  std::cout << "  Zero:     "
+            << ((status() & to_underlying(Flag::Zero)) ? 1 : 0) << std::endl;
+  std::cout << "  Negative: "
+            << ((status() & to_underlying(Flag::Negative)) ? 1 : 0)
+            << std::endl;
 }
 
 } // namespace MOS6502
