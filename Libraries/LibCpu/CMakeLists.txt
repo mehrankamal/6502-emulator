@@ -1,4 +1,4 @@
-add_library(LibCpu STATIC 
+add_library(LibCpu STATIC
     Cpu.cc
     Emulator.cc
     Memory.cc

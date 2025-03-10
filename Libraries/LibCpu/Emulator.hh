@@ -7,13 +7,17 @@
 namespace MOS6502 {
 class Emulator {
 public:
-  Emulator(Cpu cpu, Memory memory) : m_cpu(cpu), m_memory(memory) {}
+    Emulator(Cpu cpu, Memory memory)
+        : m_cpu(cpu)
+        , m_memory(memory)
+    {
+    }
 
-  void load_binary(std::string const &binary_path);
-  void run();
+    void load_binary(std::string const& binary_path);
+    void run();
 
 private:
-  Cpu m_cpu;
-  Memory m_memory;
+    Cpu m_cpu;
+    Memory m_memory;
 };
 } // namespace MOS6502
